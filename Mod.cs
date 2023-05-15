@@ -1,5 +1,6 @@
 ﻿using KitchenLib;
 using KitchenLib.Event;
+using KitchenLib.Preferences;
 using KitchenMods;
 using System.Reflection;
 using UnityEngine;
@@ -13,9 +14,9 @@ namespace KitchenFireWalker
         // Mod Name is displayed to the player and listed in the mods menu
         // Mod Version must follow semver notation e.g. "1.2.3"
         public const string MOD_GUID = "Nghia.PlateUp.FireWalker";
-        public const string MOD_NAME = "Fire Walker";
-        public const string MOD_VERSION = "0.1.0";
-        public const string MOD_AUTHOR = "nghia2daizzo";
+        public const string MOD_NAME = "FireWalker";
+        public const string MOD_VERSION = "0.69.1";
+        public const string MOD_AUTHOR = "Nghia";
         public const string MOD_GAMEVERSION = ">=1.1.4";
         // Game version this mod is designed for in semver
         // e.g. ">=1.1.3" current and all future
@@ -29,6 +30,8 @@ namespace KitchenFireWalker
 #endif
 
         public static AssetBundle Bundle;
+
+        public static PreferenceManager PManager;
 
         public Mod() : base(MOD_GUID, MOD_NAME, MOD_AUTHOR, MOD_VERSION, MOD_GAMEVERSION, Assembly.GetExecutingAssembly()) { }
 
