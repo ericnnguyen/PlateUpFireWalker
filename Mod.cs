@@ -1,14 +1,18 @@
-﻿using KitchenLib;
+﻿using KitchenData;
+using KitchenLib;
 using KitchenLib.Event;
-using KitchenLib.Preferences;
+using KitchenLib.Utils;
 using KitchenMods;
+using PreferenceSystem;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using ApplianceLib;
 
 // Namespace should have "Kitchen" in the beginning
 namespace KitchenFireWalker
 {
-   public class Mod : BaseMod, IModSystem
+    public class Mod : BaseMod, IModSystem
     {
         // GUID must be unique and is recommended to be in reverse domain name notation
         // Mod Name is displayed to the player and listed in the mods menu
@@ -31,20 +35,35 @@ namespace KitchenFireWalker
 
         public static AssetBundle Bundle;
 
-        public static PreferenceManager PManager;
+        public const string FIRE_WALKER_ITEM_PROVIDER_ID = "fireWalkerItemProviderEnabled";
+        public const string FIRE_WALKER_ID = "fireWalkerEnabled";
+
+        public static PreferenceSystemManager PManager;
 
         public Mod() : base(MOD_GUID, MOD_NAME, MOD_AUTHOR, MOD_VERSION, MOD_GAMEVERSION, Assembly.GetExecutingAssembly()) { }
 
         protected override void OnInitialise()
         {
             LogWarning($"{MOD_GUID} v{MOD_VERSION} in use!");
+
+            ////UpdateUpgrades();
+        }
+
+        private void UpdateUpgrades()
+        {
+            List<Appliance> appliances = new List<Appliance>();
+            Appliance fireWalkerItemProvider = (Appliance)GDOUtils.GetCustomGameDataObject<FireWalkerShoeRack>().GameDataObject;
+            if (fireWalkerItemProvider != null)
+            {
+                appliances.Add(fireWalkerItemProvider);
+            }
         }
 
         private void AddGameData()
         {
             LogInfo("Attempting to register game data...");
 
-            // AddGameDataObject<MyCustomGDO>();
+            AddGameDataObject<FireWalkerShoeRack>();
 
             LogInfo("Done loading game data.");
         }
@@ -64,12 +83,15 @@ namespace KitchenFireWalker
 
             // Register custom GDOs
             AddGameData();
+            PManager = new PreferenceSystemManager(MOD_GUID, MOD_NAME);
 
             // Perform actions when game data is built
             Events.BuildGameDataEvent += delegate (object s, BuildGameDataEventArgs args)
             {
+                args.gamedata.ProcessesView.Initialise(args.gamedata);
             };
         }
+
         #region Logging
         public static void LogInfo(string _log) { Debug.Log($"[{MOD_NAME}] " + _log); }
         public static void LogWarning(string _log) { Debug.LogWarning($"[{MOD_NAME}] " + _log); }

@@ -41,10 +41,6 @@
 		<PackageReference Include="Lib.Harmony" Version="2.2.2" />
 		<PackageReference Include="Yariazen.PlateUp.ModBuildUtilities" Version="1.8.3" />
 	</ItemGroup>
-  
-	<ItemGroup>
-	  <Folder Include="Fire\" />
-	</ItemGroup>
 
 	<Target Name="BundleWorkshop" AfterTargets="Build" Condition="$(EnableModDeployLocal) == 'true'">
 		<Copy SourceFiles="$(TargetDir)$(MSBuildProjectName)-Workshop.dll" DestinationFolder="$(WorkshopDir)" />
