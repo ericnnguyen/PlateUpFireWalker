@@ -8,6 +8,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using ApplianceLib;
+using KitchenLib.References;
+using System.Linq;
+using System;
+using Kitchen;
 
 // Namespace should have "Kitchen" in the beginning
 namespace KitchenFireWalker
@@ -46,17 +50,26 @@ namespace KitchenFireWalker
         {
             LogWarning($"{MOD_GUID} v{MOD_VERSION} in use!");
 
-            ////UpdateUpgrades();
+            UpdateUpgrades();
         }
 
         private void UpdateUpgrades()
         {
-            List<Appliance> appliances = new List<Appliance>();
-            Appliance fireWalkerItemProvider = (Appliance)GDOUtils.GetCustomGameDataObject<FireWalkerShoeRack>().GameDataObject;
-            if (fireWalkerItemProvider != null)
+            Item fireExtinguisher = GDOUtils.GetExistingGDO(ItemReferences.FireExtinguisher) as Item;
+            TryRemoveComponentsFromAppliance<Item>(ItemReferences.FireExtinguisher, new Type[] { typeof(CDurationTool), typeof(CEquippableTool)});
+            CDurationTool durationTool = new CDurationTool()
             {
-                appliances.Add(fireWalkerItemProvider);
-            }
+                Type = DurationToolType.FireExtinguisher,
+                Factor = 15f
+            };
+
+            CEquippableTool equippableTool = new CEquippableTool()
+            {
+                CanHoldItems = true,
+            };
+
+            fireExtinguisher.Properties.Add(durationTool);
+            fireExtinguisher.Properties.Add(equippableTool);
         }
 
         private void AddGameData()
@@ -90,6 +103,49 @@ namespace KitchenFireWalker
             {
                 args.gamedata.ProcessesView.Initialise(args.gamedata);
             };
+        }
+
+        internal static T Find<T>(int id) where T : GameDataObject
+        {
+            return (T)GDOUtils.GetExistingGDO(id) ?? (T)GDOUtils.GetCustomGameDataObject(id)?.GameDataObject;
+        }
+
+        private bool TryRemoveComponentsFromAppliance<T>(int id, Type[] componentTypesToRemove) where T : GameDataObject
+        {
+            //// Borrowed from IcedMilo
+            T gDO = Find<T>(id);
+
+            if (gDO == null)
+            {
+                return false;
+            }
+
+            bool success = false;
+            if (typeof(T) == typeof(Appliance))
+            {
+                Appliance appliance = (Appliance)Convert.ChangeType(gDO, typeof(Appliance));
+                for (int i = appliance.Properties.Count - 1; i > -1; i--)
+                {
+                    if (componentTypesToRemove.Contains(appliance.Properties[i].GetType()))
+                    {
+                        appliance.Properties.RemoveAt(i);
+                        success = true;
+                    }
+                }
+            }
+            else if (typeof(T) == typeof(Item))
+            {
+                Item item = (Item)Convert.ChangeType(gDO, typeof(Item));
+                for (int i = item.Properties.Count - 1; i > -1; i--)
+                {
+                    if (componentTypesToRemove.Contains(item.Properties[i].GetType()))
+                    {
+                        item.Properties.RemoveAt(i);
+                        success = true;
+                    }
+                }
+            }
+            return success;
         }
 
         #region Logging
