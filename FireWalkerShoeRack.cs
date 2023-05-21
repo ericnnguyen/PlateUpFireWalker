@@ -63,6 +63,11 @@ namespace KitchenFireWalker
                 {
                     new Appliance.Section()
                     {
+                        Title = "Mess Proof",
+                        Description = "Move slightly slower. Ignore messes"
+                    },
+                    new Appliance.Section()
+                    {
                         Title = "Burning Mess Spreader",
                         Description = "Spreads a burning mess with every step"
                     },
