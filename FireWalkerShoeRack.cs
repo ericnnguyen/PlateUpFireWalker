@@ -64,11 +64,11 @@ namespace KitchenFireWalker
                     new Appliance.Section()
                     {
                         Title = "Burning Mess Spreader",
-                        Description = "Chance to spreads a burning mess with every step"
+                        Description = "Spreads a burning mess with every step"
                     },
                     new Appliance.Section()
                     {
-                        Title = "Burning Speedster",
+                        Title = "Flame Road",
                         Description = "Move extremely fast when walking over a burning mess"
                     }
                 }

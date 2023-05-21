@@ -8,7 +8,7 @@ namespace KitchenFireWalker
 {
     [UpdateAfter(typeof(DetermineShoeBonus))]
     [UpdateBefore(typeof(DeterminePlayerSpeed))]
-    internal class FireWalkerSystem : GenericSystemBase
+    internal class FlameRoadSystem : GenericSystemBase
     {
         EntityQuery Players;
         EntityQuery Slowers;

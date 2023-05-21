@@ -40,15 +40,20 @@ namespace KitchenFireWalker
         public const string FIRE_WALKER_ID = "fireWalkerEnabled";
         public static int PLAYER_SHOE_FIRE_WALKER = 904;
 
-        public static PreferenceSystemManager PManager;
+        public static PreferenceSystemManager PreferenceManager;
 
         public Mod() : base(MOD_GUID, MOD_NAME, MOD_AUTHOR, MOD_VERSION, MOD_GAMEVERSION, Assembly.GetExecutingAssembly()) { }
 
         protected override void OnInitialise()
         {
             LogWarning($"{MOD_GUID} v{MOD_VERSION} in use!");
-
             UpdateUpgrades();
+            /*
+            if (PreferenceManager.Get<bool>(FIRE_WALKER_ID))
+            {
+                UpdateUpgrades();
+            }
+            */
         }
 
         private void UpdateUpgrades()
@@ -58,7 +63,7 @@ namespace KitchenFireWalker
             CDurationTool durationTool = new CDurationTool()
             {
                 Type = DurationToolType.FireExtinguisher,
-                Factor = 15f
+                Factor = 30f
             };
 
             CEquippableTool equippableTool = new CEquippableTool()
@@ -101,8 +106,10 @@ namespace KitchenFireWalker
 
             // Register custom GDOs
             AddGameData();
-            PManager = new PreferenceSystemManager(MOD_GUID, MOD_NAME);
-
+            PreferenceManager = new PreferenceSystemManager(MOD_GUID, MOD_NAME);
+            
+            // Enable/Disable Mod via Preferences. Don't need right now.
+            // CreatePreferences();
             // Perform actions when game data is built
             Events.BuildGameDataEvent += delegate (object s, BuildGameDataEventArgs args)
             {
@@ -113,6 +120,22 @@ namespace KitchenFireWalker
         internal static T Find<T>(int id) where T : GameDataObject
         {
             return (T)GDOUtils.GetExistingGDO(id) ?? (T)GDOUtils.GetCustomGameDataObject(id)?.GameDataObject;
+        }
+
+        private void CreatePreferences()
+        {
+            PreferenceManager
+                .AddLabel("Fire Walker")
+                .AddInfo("Enabling/Disabling the mod only takes effect upon game restart")
+                .AddOption<bool>
+                    (FIRE_WALKER_ID,
+                    true,
+                    new bool[] { true, false },
+                    new string[] { "Enabled", "Disabled" })
+                .AddSpacer();
+
+            PreferenceManager.RegisterMenu(PreferenceSystemManager.MenuType.MainMenu);
+            PreferenceManager.RegisterMenu(PreferenceSystemManager.MenuType.PauseMenu);
         }
 
         private bool TryRemoveComponentsFromAppliance<T>(int id, Type[] componentTypesToRemove) where T : GameDataObject
