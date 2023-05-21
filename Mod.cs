@@ -65,6 +65,7 @@ namespace KitchenFireWalker
                 Type = DurationToolType.FireExtinguisher,
                 Factor = 100f
             };
+
             CEquippableTool equippableTool = new CEquippableTool()
             {
                 CanHoldItems = true,

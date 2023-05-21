@@ -47,7 +47,7 @@ namespace KitchenFireWalker
         public override DecorationType ThemeRequired => DecorationType.Null;
         public override ShoppingTags ShoppingTags => ShoppingTags.Misc;
         public override RarityTier RarityTier => RarityTier.Uncommon;
-        public override PriceTier PriceTier => PriceTier.Expensive;
+        public override PriceTier PriceTier => PriceTier.Medium;
         public override bool StapleWhenMissing => false;
         public override bool SellOnlyAsDuplicate => false;
         public override bool PreventSale => false;
@@ -61,11 +61,6 @@ namespace KitchenFireWalker
                 Description = "When you need more fire",
                 Sections = new List<Appliance.Section>()
                 {
-                    new Appliance.Section()
-                    {
-                        Title = "Mess Proof",
-                        Description = "Move slightly slower. Ignore messes"
-                    },
                     new Appliance.Section()
                     {
                         Title = "Burning Mess Spreader",

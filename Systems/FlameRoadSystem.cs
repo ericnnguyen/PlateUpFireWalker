@@ -18,7 +18,7 @@ namespace KitchenFireWalker
             base.Initialise();
             Players = GetEntityQuery(new QueryHelper()
                 .All(typeof(CPlayer), typeof(CPlayerCosmetics), typeof(CShoeEffect), typeof(CPosition)));
-            Slowers = GetEntityQuery(new QueryHelper().All(typeof(CPosition), typeof(CSlowPlayer), typeof(CIsOnFire)).None(typeof(CToolInUse)));
+            Slowers = GetEntityQuery(new QueryHelper().All(typeof(CPosition), typeof(CSlowPlayer), typeof(CIsOnFire)));
         }
 
         protected override void OnUpdate()
@@ -47,11 +47,7 @@ namespace KitchenFireWalker
                 Vector3 slowerVector = slowerPosition.Position.Rounded();
                 if (playerVector.x == slowerVector.x && playerVector.z == slowerVector.z)
                 {
-                    EntityManager.SetComponentData(player, new CShoeEffect() { IgnoreMess = true, SpeedModifier = 3.8f });
-                }
-                else
-                {
-                    EntityManager.SetComponentData(player, new CShoeEffect() { IgnoreMess = true, SpeedModifier = -0.2f });
+                    EntityManager.SetComponentData(player, new CShoeEffect() { IgnoreMess = true, SpeedModifier = 1.8f });
                 }
             }
         }
