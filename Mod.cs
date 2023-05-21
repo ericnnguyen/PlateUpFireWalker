@@ -39,8 +39,8 @@ namespace KitchenFireWalker
 
         public static AssetBundle Bundle;
 
-        public const string FIRE_WALKER_ITEM_PROVIDER_ID = "fireWalkerItemProviderEnabled";
         public const string FIRE_WALKER_ID = "fireWalkerEnabled";
+        public static int PLAYER_SHOE_FIRE_WALKER = 904;
 
         public static PreferenceSystemManager PManager;
 

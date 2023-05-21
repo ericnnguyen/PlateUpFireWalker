@@ -27,7 +27,7 @@ namespace KitchenFireWalker
                 //if (Random.Range(0f, 1f) < .9) return;
                     
                 CPlayerCosmetics cosmetics = playerComestics[i];
-                if (cosmetics.Shoe != (PlayerShoe)904) continue;
+                if (cosmetics.Shoe != (PlayerShoe) Mod.PLAYER_SHOE_FIRE_WALKER) continue;
 
                 CPosition position = playerPositions[i];
                 if (GetOccupant(position, OccupancyLayer.Default) != default || GetOccupant(position, OccupancyLayer.Floor) != default) continue;

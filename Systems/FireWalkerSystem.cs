@@ -29,7 +29,7 @@ namespace KitchenFireWalker
             using NativeArray<CPosition> playerPosition = Players.ToComponentDataArray<CPosition>(Allocator.Temp);
             for (int i = 0; i < players.Length; i++)
             {
-                if (playerComestics[i].Shoe == (PlayerShoe)904)
+                if (playerComestics[i].Shoe == (PlayerShoe) Mod.PLAYER_SHOE_FIRE_WALKER)
                 {
                     ComputePlayerSpeed(players[i], playerPosition[i], slowers);
                 }

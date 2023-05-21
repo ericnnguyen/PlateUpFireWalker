@@ -42,6 +42,13 @@
 		<PackageReference Include="Yariazen.PlateUp.ModBuildUtilities" Version="1.8.3" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Krafs.Publicizer" Version="2.2.1" />
+	</ItemGroup>
+	<ItemGroup>
+		<Publicize Include="Kitchen.Common:Kitchen.PlayerShoeSubview+ShoePrefab" />
+		<Publicize Include="Kitchen.Common:Kitchen.PlayerShoeSubview.Prefabs" />
+	</ItemGroup>
 	<Target Name="BundleWorkshop" AfterTargets="Build" Condition="$(EnableModDeployLocal) == 'true'">
 		<Copy SourceFiles="$(TargetDir)$(MSBuildProjectName)-Workshop.dll" DestinationFolder="$(WorkshopDir)" />
 	</Target>
