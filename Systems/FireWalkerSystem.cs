@@ -34,6 +34,7 @@ namespace KitchenFireWalker
                     ComputePlayerSpeed(players[i], playerPosition[i], slowers);
                 }
             }
+
             players.Dispose();
             slowers.Dispose();
         }
@@ -47,6 +48,10 @@ namespace KitchenFireWalker
                 if (playerVector.x == slowerVector.x && playerVector.z == slowerVector.z)
                 {
                     EntityManager.SetComponentData(player, new CShoeEffect() { IgnoreMess = true, SpeedModifier = 2f });
+                }
+                else
+                {
+                    EntityManager.SetComponentData(player, new CShoeEffect() { IgnoreMess = true, SpeedModifier = 0f });
                 }
             }
         }

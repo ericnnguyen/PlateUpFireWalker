@@ -29,7 +29,8 @@ namespace KitchenFireWalker
                     ShoePrefab trainerPrefab = playerShoeSubview.Prefabs.FirstOrDefault(prefab => prefab.Shoe == PlayerShoe.Trainers);
                     if(trainerPrefab.Shoe != PlayerShoe.Trainers) return;
 
-                    GameObject fireWalker = GameObject.Instantiate(trainerPrefab.Prefab);
+                    GameObject fireWalker = UnityEngine.Object.Instantiate(trainerPrefab.Prefab);
+                    fireWalker.SetActive(false);
 
                     var materials = new Material[1];
                     materials[0] = MaterialUtils.GetExistingMaterial("Plastic - Shiny Red");

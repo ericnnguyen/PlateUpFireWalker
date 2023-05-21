@@ -1,17 +1,10 @@
-﻿using IngredientLib;
-using Kitchen;
+﻿using Kitchen;
 using KitchenData;
 using KitchenLib.Customs;
 using KitchenLib.References;
 using KitchenLib.Utils;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using ApplianceLib.Api.Prefab;
-using System.Reflection;
 
 namespace KitchenFireWalker
 {
@@ -50,11 +43,11 @@ namespace KitchenFireWalker
         public override EntryAnimation EntryAnimation => EntryAnimation.Placement;
         public override ExitAnimation ExitAnimation => ExitAnimation.Destroy;
         public override bool IsPurchasable => true;
-        public override bool IsPurchasableAsUpgrade => false;
+        public override bool IsPurchasableAsUpgrade => true;
         public override DecorationType ThemeRequired => DecorationType.Null;
         public override ShoppingTags ShoppingTags => ShoppingTags.Misc;
-        public override RarityTier RarityTier => RarityTier.Common;
-        public override PriceTier PriceTier => PriceTier.VeryCheap;
+        public override RarityTier RarityTier => RarityTier.Uncommon;
+        public override PriceTier PriceTier => PriceTier.Expensive;
         public override bool StapleWhenMissing => false;
         public override bool SellOnlyAsDuplicate => false;
         public override bool PreventSale => false;
@@ -71,7 +64,7 @@ namespace KitchenFireWalker
                     new Appliance.Section()
                     {
                         Title = "Burning Mess Spreader",
-                        Description = "Spreads $mess$ and $fire$ with every step"
+                        Description = "Chance to spreads a burning mess with every step"
                     },
                     new Appliance.Section()
                     {
@@ -82,7 +75,11 @@ namespace KitchenFireWalker
             })
         };
 
-        public override List<Appliance> Upgrades => new List<Appliance>();
+        public override List<Appliance> Upgrades => new List<Appliance>()
+        {
+            GDOUtils.GetExistingGDO(ApplianceReferences.FireExtinguisherHolder) as Appliance
+        };
+
         bool isRegistered = false;
 
         public override void OnRegister(Appliance gameDataObject)

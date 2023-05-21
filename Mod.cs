@@ -4,10 +4,8 @@ using KitchenLib.Event;
 using KitchenLib.Utils;
 using KitchenMods;
 using PreferenceSystem;
-using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using ApplianceLib;
 using KitchenLib.References;
 using System.Linq;
 using System;
@@ -23,7 +21,7 @@ namespace KitchenFireWalker
         // Mod Version must follow semver notation e.g. "1.2.3"
         public const string MOD_GUID = "Nghia.PlateUp.FireWalker";
         public const string MOD_NAME = "FireWalker";
-        public const string MOD_VERSION = "0.69.1";
+        public const string MOD_VERSION = "0.1.0";
         public const string MOD_AUTHOR = "Nghia";
         public const string MOD_GAMEVERSION = ">=1.1.4";
         // Game version this mod is designed for in semver
@@ -70,6 +68,13 @@ namespace KitchenFireWalker
 
             fireExtinguisher.Properties.Add(durationTool);
             fireExtinguisher.Properties.Add(equippableTool);
+
+            Appliance customAppliance = GDOUtils.GetCustomGameDataObject<FireWalkerShoeRack>().GameDataObject as Appliance;
+            Appliance fireExtinguisherHolder = GDOUtils.GetExistingGDO(ApplianceReferences.FireExtinguisherHolder) as Appliance;
+            if (customAppliance != null & fireExtinguisherHolder != null)
+            {
+                fireExtinguisherHolder.Upgrades.Add(customAppliance);
+            }
         }
 
         private void AddGameData()
@@ -112,7 +117,6 @@ namespace KitchenFireWalker
 
         private bool TryRemoveComponentsFromAppliance<T>(int id, Type[] componentTypesToRemove) where T : GameDataObject
         {
-            //// Borrowed from IcedMilo
             T gDO = Find<T>(id);
 
             if (gDO == null)

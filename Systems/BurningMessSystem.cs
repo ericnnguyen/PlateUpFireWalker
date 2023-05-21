@@ -3,10 +3,11 @@ using KitchenData;
 using KitchenLib.References;
 using Unity.Collections;
 using Unity.Entities;
+using UnityEngine;
 
 namespace KitchenFireWalker
 {
-    public class BurningMessSystem : DaySystem
+    internal class BurningMessSystem : DaySystem
     {
         EntityQuery Players;
 
@@ -23,12 +24,9 @@ namespace KitchenFireWalker
             using NativeArray<CPlayerCosmetics> playerComestics = Players.ToComponentDataArray<CPlayerCosmetics>(Allocator.Temp);
             for (int i = 0; i < playerPositions.Length; i++)
             {
-                //Lower % of fire?
-                //if (Random.Range(0f, 1f) < .9) return;
-                    
                 CPlayerCosmetics cosmetics = playerComestics[i];
                 if (cosmetics.Shoe != (PlayerShoe) Mod.PLAYER_SHOE_FIRE_WALKER) continue;
-
+                if (Random.Range(0f, 1f) < 20f / 100f) return;
                 CPosition position = playerPositions[i];
                 if (GetOccupant(position, OccupancyLayer.Default) != default || GetOccupant(position, OccupancyLayer.Floor) != default) continue;
 
@@ -36,7 +34,6 @@ namespace KitchenFireWalker
                 Set(newMess, new CPosition(position.Position.Rounded()));
                 Set(newMess, default(CMess));
                 Set(newMess, default(CIsOnFire));
-                Set(newMess, default(CBurningMess));
                 Set(newMess, new CCreateAppliance()
                 {
                     ID = ApplianceReferences.MessKitchen1,
