@@ -21,7 +21,7 @@ namespace KitchenFireWalker
         // Mod Version must follow semver notation e.g. "1.2.3"
         public const string MOD_GUID = "Nghia.PlateUp.FireWalker";
         public const string MOD_NAME = "FireWalker";
-        public const string MOD_VERSION = "0.1.0";
+        public const string MOD_VERSION = "0.3.0";
         public const string MOD_AUTHOR = "Nghia";
         public const string MOD_GAMEVERSION = ">=1.1.4";
         // Game version this mod is designed for in semver
@@ -40,7 +40,7 @@ namespace KitchenFireWalker
         public const string FIRE_WALKER_ID = "fireWalkerEnabled";
         public static int PLAYER_SHOE_FIRE_WALKER = 904;
 
-        public static PreferenceSystemManager PreferenceManager;
+        public static PreferenceSystemManager PManager;
 
         public Mod() : base(MOD_GUID, MOD_NAME, MOD_AUTHOR, MOD_VERSION, MOD_GAMEVERSION, Assembly.GetExecutingAssembly()) { }
 
@@ -106,7 +106,7 @@ namespace KitchenFireWalker
 
             // Register custom GDOs
             AddGameData();
-            PreferenceManager = new PreferenceSystemManager(MOD_GUID, MOD_NAME);
+            PManager = new PreferenceSystemManager(MOD_GUID, MOD_NAME);
             
             // Enable/Disable Mod via Preferences. Don't need right now.
             // CreatePreferences();
@@ -124,7 +124,7 @@ namespace KitchenFireWalker
 
         private void CreatePreferences()
         {
-            PreferenceManager
+            PManager
                 .AddLabel("Fire Walker")
                 .AddInfo("Enabling/Disabling the mod only takes effect upon game restart")
                 .AddOption<bool>
@@ -134,8 +134,8 @@ namespace KitchenFireWalker
                     new string[] { "Enabled", "Disabled" })
                 .AddSpacer();
 
-            PreferenceManager.RegisterMenu(PreferenceSystemManager.MenuType.MainMenu);
-            PreferenceManager.RegisterMenu(PreferenceSystemManager.MenuType.PauseMenu);
+            PManager.RegisterMenu(PreferenceSystemManager.MenuType.MainMenu);
+            PManager.RegisterMenu(PreferenceSystemManager.MenuType.PauseMenu);
         }
 
         private bool TryRemoveComponentsFromAppliance<T>(int id, Type[] componentTypesToRemove) where T : GameDataObject

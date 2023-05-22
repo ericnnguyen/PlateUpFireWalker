@@ -8,7 +8,7 @@ namespace KitchenFireWalker
 {
     [UpdateAfter(typeof(DetermineShoeBonus))]
     [UpdateBefore(typeof(DeterminePlayerSpeed))]
-    internal class FlameRoadSystem : GenericSystemBase
+    internal class FlameRoadSystem : DaySystem
     {
         EntityQuery Players;
         EntityQuery Slowers;
@@ -18,7 +18,7 @@ namespace KitchenFireWalker
             base.Initialise();
             Players = GetEntityQuery(new QueryHelper()
                 .All(typeof(CPlayer), typeof(CPlayerCosmetics), typeof(CShoeEffect), typeof(CPosition)));
-            Slowers = GetEntityQuery(new QueryHelper().All(typeof(CPosition), typeof(CSlowPlayer), typeof(CIsOnFire)));
+            Slowers = GetEntityQuery(new QueryHelper().All(typeof(CPosition), typeof(CSlowPlayer), typeof(CIsOnFire)).None(typeof(CToolInUse)));
         }
 
         protected override void OnUpdate()
