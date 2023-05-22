@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using static Kitchen.PlayerShoeSubview;
 
-namespace KitchenFireWalker.Patches
+namespace KitchenFireWalker
 {
     [HarmonyPatch]
     internal static class PlayerShoeSubView_Patch

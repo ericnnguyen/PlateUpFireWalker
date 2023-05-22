@@ -10,7 +10,6 @@ using KitchenLib.References;
 using System.Linq;
 using System;
 using Kitchen;
-using KitchenFireWalker.Customs;
 
 // Namespace should have "Kitchen" in the beginning
 namespace KitchenFireWalker

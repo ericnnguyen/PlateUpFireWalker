@@ -6,7 +6,7 @@ using KitchenLib.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace KitchenFireWalker.Customs
+namespace KitchenFireWalker
 {
     internal class FireWalkerShoeRack : CustomAppliance
     {

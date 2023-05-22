@@ -3,7 +3,6 @@ using KitchenData;
 using KitchenLib.References;
 using Unity.Collections;
 using Unity.Entities;
-using UnityEngine;
 
 namespace KitchenFireWalker
 {

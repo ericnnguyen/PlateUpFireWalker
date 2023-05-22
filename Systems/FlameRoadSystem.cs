@@ -47,7 +47,7 @@ namespace KitchenFireWalker
                 Vector3 slowerVector = slowerPosition.Position.Rounded();
                 if (playerVector.x == slowerVector.x && playerVector.z == slowerVector.z)
                 {
-                    EntityManager.SetComponentData(player, new CShoeEffect() { IgnoreMess = true, SpeedModifier = 1.8f });
+                    EntityManager.SetComponentData(player, new CShoeEffect() { IgnoreMess = true, SpeedModifier = 2f });
                 }
             }
         }
