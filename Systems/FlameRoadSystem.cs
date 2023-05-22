@@ -49,6 +49,10 @@ namespace KitchenFireWalker
                 {
                     EntityManager.SetComponentData(player, new CShoeEffect() { IgnoreMess = true, SpeedModifier = 2f });
                 }
+                else
+                {
+                    EntityManager.SetComponentData(player, new CShoeEffect() { IgnoreMess = true, SpeedModifier = 0f });
+                }
             }
         }
     }
