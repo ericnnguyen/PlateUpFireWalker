@@ -20,7 +20,7 @@ namespace KitchenFireWalker
             {
                 if (_prefabCache == null)
                 {
-                    GameObject container = new GameObject("FireWalker_Container");
+                    GameObject container = new GameObject("Hider");
                     container.SetActive(false);
                     _prefabCache = Object.Instantiate((GDOUtils.GetExistingGDO(BaseGameDataObjectID) as Appliance).Prefab);
                     _prefabCache.transform.SetParent(container.transform);
