@@ -3,7 +3,6 @@ using KitchenLib;
 using KitchenLib.Event;
 using KitchenLib.Utils;
 using KitchenMods;
-using PreferenceSystem;
 using System.Reflection;
 using UnityEngine;
 using KitchenLib.References;
@@ -40,7 +39,7 @@ namespace KitchenFireWalker
         public const string FIRE_WALKER_ID = "fireWalkerEnabled";
         public static int PLAYER_SHOE_FIRE_WALKER = 904;
 
-        public static PreferenceSystemManager PManager;
+        //public static PreferenceSystemManager PManager;
 
         public Mod() : base(MOD_GUID, MOD_NAME, MOD_AUTHOR, MOD_VERSION, MOD_GAMEVERSION, Assembly.GetExecutingAssembly()) { }
 
@@ -106,7 +105,7 @@ namespace KitchenFireWalker
 
             // Register custom GDOs
             AddGameData();
-            PManager = new PreferenceSystemManager(MOD_GUID, MOD_NAME);
+            //PManager = new PreferenceSystemManager(MOD_GUID, MOD_NAME);
             
             // Enable/Disable Mod via Preferences. Don't need right now.
             // CreatePreferences();
@@ -122,6 +121,7 @@ namespace KitchenFireWalker
             return (T)GDOUtils.GetExistingGDO(id) ?? (T)GDOUtils.GetCustomGameDataObject(id)?.GameDataObject;
         }
 
+        /*
         private void CreatePreferences()
         {
             PManager
@@ -137,6 +137,7 @@ namespace KitchenFireWalker
             PManager.RegisterMenu(PreferenceSystemManager.MenuType.MainMenu);
             PManager.RegisterMenu(PreferenceSystemManager.MenuType.PauseMenu);
         }
+        */
 
         private bool TryRemoveComponentsFromAppliance<T>(int id, Type[] componentTypesToRemove) where T : GameDataObject
         {
